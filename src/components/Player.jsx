@@ -10,6 +10,12 @@ export default function Player() {
   function handleClick() {
     //inside the current property, the actual ref value will be stored
     setEnteredPlayerName(playerName.current.value) ;
+    
+    playerName.current.value=''; 
+    //this is anti React a little bit as it's imprerative coding style 
+    //for small changes like clearing inputs, it's fine 
+    //don't use refs to read and manipulate data all over 
+    //it's a good alternative for useState for smaller tasks 
   }
 
   return (
