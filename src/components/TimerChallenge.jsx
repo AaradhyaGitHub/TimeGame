@@ -5,6 +5,7 @@ import ResultModal from "./ResultModal.jsx";
 // timer is declared outside the component function. Therefore, it's a variable shared across all component instances
 export default function TimerChallenge({ title, targetTime }) {
   const timer = useRef();
+  const dialogue = useRef();
   {
     /* 
     ____________________________________________________________________________________________________________________________
@@ -29,6 +30,7 @@ export default function TimerChallenge({ title, targetTime }) {
     //if the above function runs, time is expired hence the player lost
     timer.current = setTimeout(() => {
       setTimerExpired(true);
+      dialogue.current.showModal()
     }, targetTime * 1000);
     setTimerStarted(true);
   }
@@ -43,7 +45,7 @@ export default function TimerChallenge({ title, targetTime }) {
 
   return (
     <>
-    {timerExpired && <ResultModal taretTime={targetTime} result="lost"/>}
+     <ResultModal ref={dialogue}taretTime={targetTime} result="lost"/>
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
