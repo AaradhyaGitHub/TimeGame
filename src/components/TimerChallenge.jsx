@@ -11,12 +11,12 @@ export default function TimerChallenge({ title, targetTime }) {
     ____________________________________________________________________________________________________________________________
     Feature	             |       useRef	                                      |      useState                                  |
     ---------------------|----------------------------------------------------|------------------------------------------------|
-    Value Persistence	 |       Persists across re-renders	                  |      Persists across re-renders                |
+    Value Persistence	   |       Persists across re-renders	                  |      Persists across re-renders                |
     ---------------------|----------------------------------------------------|------------------------------------------------|                                                  |
     Triggers Re-render	 |       No, changes to ref.current don’t re-render	  |      Yes, calling setState triggers a re-render|
     ---------------------|----------------------------------------------------|------------------------------------------------|
-    Use Case	         |       Storing mutable values or DOM references	  |      Managing state that affects UI            |
-    ----------------------------------------------------------------------------------------------------------------------------
+    Use Case	           |       Storing mutable values or DOM references	    |      Managing state that affects UI            |
+    ---------------------|----------------------------------------------------|------------------------------------------------|
     */
   }
 
@@ -30,7 +30,7 @@ export default function TimerChallenge({ title, targetTime }) {
     //if the above function runs, time is expired hence the player lost
     timer.current = setTimeout(() => {
       setTimerExpired(true);
-      dialogue.current.showModal()
+      dialogue.current.open();
     }, targetTime * 1000);
     setTimerStarted(true);
   }
@@ -45,7 +45,7 @@ export default function TimerChallenge({ title, targetTime }) {
 
   return (
     <>
-     <ResultModal ref={dialogue}taretTime={targetTime} result="lost"/>
+      <ResultModal ref={dialogue} taretTime={targetTime} result="lost" />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
