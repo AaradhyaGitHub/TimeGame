@@ -20,18 +20,22 @@ export default function TimerChallenge({ title, targetTime }) {
     */
   }
 
-  const [timerStarted, setTimerStarted] = useState(false);
-  const [timerExpired, setTimerExpired] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(targetTime * 1000);
+  const timerIsActive = timeRemaining > 0 && timeRemaining < targetTime * 1000;
+  if (timeRemaining <= 0) {
+    clearInterval(timer.current);
+    setTimeRemaining(targetTime * 1000);
+    dialogue.current.open();
+  }
 
   function handleStart() {
     //setTimeout is a default jS feature
     //setTimeout works in milliseconds but we are dealing with seconds, that's why we multiply with 1000
 
     //if the above function runs, time is expired hence the player lost
-    timer.current = setTimeout(() => {
-      setTimerExpired(true);
-      dialogue.current.open();
-    }, targetTime * 1000);
+    timer.current = setInterval(() => {
+      setTimeRemaining((prevTimeRemaining) => prevTimeRemaining - 10);
+    }, 10);
     setTimerStarted(true);
   }
 
@@ -40,7 +44,8 @@ export default function TimerChallenge({ title, targetTime }) {
     // we can use clearTimeout();
     // clearTimeout takes a pointer to the timer which we are trying to terminate
     // luckily, setTimeout can be stored in a variable
-    clearTimeout(timer.current);
+    dialogue.current.open
+    clearInterval(timer.current);
   }
 
   return (
@@ -53,12 +58,12 @@ export default function TimerChallenge({ title, targetTime }) {
         </p>
 
         <p>
-          <button onClick={timerStarted ? handleStop : handleStart}>
-            {timerStarted ? "Stop" : "Start"} Challenge
+          <button onClick={timerIsActive ? handleStop : handleStart}>
+            {timerIsActive ? "Stop" : "Start"} Challenge
           </button>
         </p>
-        <p className={timerStarted ? "active" : undefined}>
-          {timerStarted ? "Time is running..." : "Timer Stopped"}
+        <p className={timerIsActive ? "active" : undefined}>
+          {timerIsActive ? "Time is running..." : "Timer Stopped"}
         </p>
       </section>
     </>
