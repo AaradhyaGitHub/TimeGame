@@ -6,14 +6,14 @@ export default function ResultModal({ ref, result, targetTime }) {
   useImperativeHandle(ref, () => {
     return {
       open() {
-        dialog.current.showModal();
+        // dialog.current.showModal();
       }
     };
   });
 
 
   return (
-    <dialog ref={dialog} className="result-modal">
+    <div ref={dialog} className="result-modal">
       <h2>You {result}</h2>
       <p>
         The target time was <strong>{targetTime} seconds.</strong>
@@ -24,6 +24,6 @@ export default function ResultModal({ ref, result, targetTime }) {
       <form method="dialog">
         <button>Close</button>
       </form>
-    </dialog>
+    </div>
   );
 }
